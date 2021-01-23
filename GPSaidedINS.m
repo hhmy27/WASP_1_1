@@ -30,6 +30,7 @@ function out_data=GPSaidedINS(in_data,settings)
 
 
 % Copy data to variables with shorter name
+
 u=[in_data.IMU.acc;in_data.IMU.gyro];
 t=in_data.IMU.t;
 
@@ -40,9 +41,11 @@ t=in_data.IMU.t;
 x_h=init_navigation_state(u,settings);
 
 % Initialize the sensor bias estimate
+% 6行1列
 delta_u_h=zeros(6,1);
 
 % Initialize the Kalman filter
+% 求得一堆参数，暂时不看
 [P,Q1,Q2,~,~]=init_filter(settings);
 
 
@@ -60,14 +63,17 @@ ctr_speed_data=1;
 
 for k=2:N
     
-    % Sampling period
+    % Sampling period，取时间间隔，一般是0.01
     Ts=t(k)-t(k-1);
     
     % Calibrate the sensor measurements using current sensor bias estimate.
+    % 没看懂是干嘛，似乎是噪声处理？
+    % delta_u_h 初始化为全0
     u_h=u(:,k)+delta_u_h;
     
     
     % Update the INS navigation state
+    % 又是一个函数
     x_h=Nav_eq(x_h,u_h,Ts,settings.gravity);
     
     % Get state space model matrices
