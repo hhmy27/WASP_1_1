@@ -4,13 +4,18 @@ function R=q2dcm(q)
 % Farell pp.41
 % Edit: Isaac Skog, 2007-05-24
 
-p=zeros(6,1);
+% 为了方便分析，假设 q = [w,x,y,z]
 
+p=zeros(6,1);
+% 四元数的平方
 p(1:4)=q.^2;
 
+% b^2 + c^2
 p(5)=p(2)+p(3);
 
+% a^2 + b^2 + c^2 + d^2 != 0
 if p(1)+p(4)+p(5)~=0
+   % 2/(a^2 + b^2 + c^2 + d^2)
    p(6)=2/(p(1)+p(4)+p(5)); 
 else
    p(6)=0;

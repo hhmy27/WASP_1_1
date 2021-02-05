@@ -106,6 +106,8 @@ out_data长这样
 
 ---
 
+**GPSaidedINS**
+
 这文件注释写得很清楚啊，之前的数据字段都有说明了
 
 整个文件的结构
@@ -116,7 +118,7 @@ out_data长这样
 
 一进来是Initialization模块，接着调用了一个`init_navigation_state`函数，参数是`u`和`settings`，`u`里面存放的是`acc`和`gyro`数据，直接就返回`x_h`了，看来这个函数内部做了不少的工作
 
-然后有一个`delta_u_h`的参数单独拎出来，注释写的`sensor bias estimate`
+然后有一个`delta_u_h`的参数单独拎出来，注释写的`sensor bias estimate`，就是模拟传感器误差的
 
 下面还有一个`init_filter`的，注释写的初始化卡尔曼滤波
 
@@ -126,4 +128,4 @@ out_data长这样
 
 紧接着是fusion，这部分没写函数，大概100多行的代码，细节全部暴露出来了，看看是怎么处理的
 
-直接一个k从2到N的循环，Ts是时间间隔，然后调用`Nav_eq(x_h,u_h,Ts,settings.gravity)`得到x_h
+直接一个k从2到N的循环，Ts是时间间隔，然后调用`Nav_eq(x_h,u_h,Ts,settings.gravity)`得到x_

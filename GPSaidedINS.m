@@ -67,13 +67,11 @@ for k=2:N
     Ts=t(k)-t(k-1);
     
     % Calibrate the sensor measurements using current sensor bias estimate.
-    % 没看懂是干嘛，似乎是噪声处理？
-    % delta_u_h 初始化为全0
+    % 手动的加上传感器误差
     u_h=u(:,k)+delta_u_h;
     
     
     % Update the INS navigation state
-    % 又是一个函数
     x_h=Nav_eq(x_h,u_h,Ts,settings.gravity);
     
     % Get state space model matrices
